@@ -1,0 +1,465 @@
+<title>Jiabei (Mira) Xu</title>
+<meta name="description" content="Jiabei (Mira) Xu — Last-mile operations, SQL & AI data architecture. Budapest. 徐佳贝 — 末端运营、SQL 与 AI 数据架构。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700;900&display=swap">
+<style>
+/* Layout: a parcel-tracking page for a career — route strip hero, before/after scan metrics, label column + content column per section */
+:root{
+  --paper:#EEF2F1;
+  --surface:#FFFFFF;
+  --ink:#13232A;
+  --muted:#56676D;
+  --line:#D2DBD9;
+  --accent:#0A7468;
+  --accent-soft:#D7EBE7;
+  --mark:#E9A825;
+  --on-accent:#FFFFFF;
+  --f-display:"Archivo","Noto Sans SC",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans","Noto Sans SC",system-ui,-apple-system,"PingFang SC",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --s-1:.8125rem; --s0:1rem; --s1:1.1875rem; --s2:1.5rem; --s3:2.25rem; --s4:clamp(2.75rem,8vw,5.75rem);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#0D1517; --surface:#142024; --ink:#E4ECEA; --muted:#93A5A7;
+    --line:#24363A; --accent:#3DBFAE; --accent-soft:#163A36; --mark:#F0B940; --on-accent:#08201C;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#0D1517; --surface:#142024; --ink:#E4ECEA; --muted:#93A5A7;
+  --line:#24363A; --accent:#3DBFAE; --accent-soft:#163A36; --mark:#F0B940; --on-accent:#08201C;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 var(--s0)/1.65 var(--f-body);padding-inline:clamp(16px,4vw,40px)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1120px;margin-inline:auto}
+
+/* language switching */
+html:not([data-lang="zh"]) .zh, html[data-lang="zh"] .en{display:none!important}
+html[data-lang="zh"] body{line-height:1.8}
+
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin-inline:calc(-1*clamp(16px,4vw,40px));padding-inline:clamp(16px,4vw,40px)}
+.bar .wrap{display:flex;align-items:center;gap:20px;height:56px}
+.mark{font:800 1rem/1 var(--f-display);font-stretch:112%;letter-spacing:.01em;text-decoration:none;white-space:nowrap}
+.mark span{color:var(--accent)}
+.nav{display:flex;gap:18px;margin-left:auto;font-size:var(--s-1)}
+.nav a{text-decoration:none;color:var(--muted)}
+.nav a:hover{color:var(--ink)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:2px;background:var(--surface)}
+.lang button{all:unset;cursor:pointer;font:500 .75rem/1 var(--f-mono);padding:7px 11px;border-radius:999px;color:var(--muted)}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.lang button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.nav a[aria-current="true"]{color:var(--ink)}
+main [id]{scroll-margin-top:72px}
+@media (max-width:760px){
+  .bar .wrap{flex-wrap:wrap;height:auto;gap:0 12px;padding-top:10px}
+  .lang{margin-left:auto}
+  .nav{order:3;width:100%;margin:8px 0 0;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:10px;-webkit-overflow-scrolling:touch}
+  .nav::-webkit-scrollbar{display:none}
+  .nav a{flex:none;font-size:.8125rem;padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+  .nav a[aria-current="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  main [id]{scroll-margin-top:112px}
+}
+
+/* hero */
+.hero{padding-block:clamp(48px,9vw,104px) 40px}
+.eyebrow{font:500 .75rem/1.4 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.live{display:inline-flex;align-items:center;gap:8px;color:var(--accent)}
+.live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 var(--accent);animation:ping 2.4s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 55%,transparent)}70%,100%{box-shadow:0 0 0 9px transparent}}
+h1{font:850 var(--s4)/.92 var(--f-display);font-stretch:118%;letter-spacing:-.02em;margin:22px 0 0;text-wrap:balance}
+h1 .alt{display:block;font-stretch:62%;font-weight:500;color:var(--muted);letter-spacing:0;font-size:.42em;margin-top:.5em}
+html[data-lang="zh"] h1{font-weight:900;letter-spacing:.04em}
+.thesis{font-size:clamp(1.125rem,2.2vw,1.375rem);line-height:1.55;max-width:38em;margin:28px 0 0;text-wrap:pretty}
+.thesis b{font-weight:600;background:linear-gradient(transparent 62%,color-mix(in srgb,var(--mark) 45%,transparent) 0)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:500 .9375rem/1 var(--f-body);text-decoration:none;padding:13px 18px;border-radius:6px;border:1px solid var(--ink)}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn:hover{transform:translateY(-1px)}
+.btn{transition:transform .15s}
+
+/* route strip */
+.route{margin-top:clamp(48px,7vw,80px);border-top:2px solid var(--ink);padding-top:18px}
+.route-head{display:flex;justify-content:space-between;gap:12px;font:500 .75rem/1.4 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.stops{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);position:relative}
+.stops::before{content:"";position:absolute;left:0;right:0;top:9px;border-top:2px dashed var(--line)}
+.stop{position:relative;padding-right:16px}
+.dot{width:20px;height:20px;border-radius:50%;background:var(--paper);border:2px solid var(--ink);position:relative;display:block}
+.stop.now .dot{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 5px var(--accent-soft)}
+.code{display:block;font:800 clamp(1.375rem,2.4vw,1.875rem)/1.05 var(--f-display);font-stretch:108%;margin-top:16px;letter-spacing:-.005em}
+html[data-lang="zh"] .code{letter-spacing:.04em}
+.code .country{display:block;font:500 .6875rem/1.4 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.stop.now .code{color:var(--accent)}
+.when{display:block;font:500 .75rem/1.4 var(--f-mono);color:var(--muted);margin-top:6px;font-variant-numeric:tabular-nums}
+.what{display:block;font-size:.9375rem;line-height:1.45;margin-top:6px}
+@media (max-width:700px){
+  .stops{grid-template-columns:1fr;gap:22px;padding-left:34px}
+  .stops::before{left:9px;right:auto;top:6px;bottom:6px;border-top:0;border-left:2px dashed var(--line)}
+  .dot{position:absolute;left:-34px;top:4px}
+  .code{margin-top:0;font-size:1.5rem}
+}
+
+/* metrics */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:clamp(48px,7vw,72px)}
+.metric{background:var(--surface);padding:24px 22px 22px;display:flex;flex-direction:column;gap:10px}
+.m-label{font:500 .6875rem/1.4 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.m-val{font:800 2.5rem/1 var(--f-display);font-stretch:100%;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.m-val s{font-size:.5em;font-weight:500;color:var(--muted);text-decoration-thickness:2px}
+.m-val .arrow{font:400 .45em/1 var(--f-mono);color:var(--muted)}
+.m-val em{font-style:normal;color:var(--accent)}
+.m-val small{font-size:.42em;font-weight:600;color:var(--muted)}
+.m-note{font-size:.875rem;line-height:1.5;color:var(--muted);margin:0}
+@media (max-width:900px){.metrics{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:480px){.metrics{grid-template-columns:1fr}}
+
+/* sections */
+section.block{display:grid;grid-template-columns:220px 1fr;gap:clamp(20px,4vw,56px);padding-block:clamp(56px,8vw,96px) 0}
+.s-label{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px);align-self:start}
+.s-label h2{font:800 var(--s2)/1.1 var(--f-display);font-stretch:112%;margin:0;text-wrap:balance}
+html[data-lang="zh"] .s-label h2{letter-spacing:.06em}
+.s-label p{font:500 .75rem/1.5 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:10px 0 0}
+@media (max-width:800px){section.block{grid-template-columns:1fr}.s-label{position:static}}
+
+/* role */
+.role-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 20px;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:14px}
+.role-head h3{font:700 var(--s1)/1.3 var(--f-body);margin:0}
+.meta{font:500 .8125rem/1.4 var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.role-sub{color:var(--accent);font-weight:500;margin:14px 0 0;max-width:62ch}
+.streams{list-style:none;padding:0;margin:8px 0 0}
+.stream{display:grid;grid-template-columns:72px 1fr;gap:18px;padding-block:24px;border-bottom:1px solid var(--line)}
+.tag{font:500 .6875rem/1 var(--f-mono);letter-spacing:.08em;color:var(--accent);background:var(--accent-soft);padding:6px 7px;border-radius:4px;align-self:start;text-align:center;margin-top:3px}
+.stream h4{font:600 1.0625rem/1.4 var(--f-body);margin:0 0 10px;text-wrap:balance}
+.stream ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.stream li{max-width:66ch;color:var(--ink);position:relative;padding-left:16px}
+.stream li::before{content:"";position:absolute;left:0;top:.72em;width:6px;height:2px;background:var(--muted)}
+.stream li b{font-weight:600}
+@media (max-width:520px){.stream{grid-template-columns:1fr;gap:10px}.tag{justify-self:start}}
+
+/* project card — the only card on the page */
+.project{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:clamp(20px,3vw,32px)}
+.project .role-head{border-bottom-color:var(--line)}
+.project ul{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:12px}
+.project li{max-width:66ch;padding-left:16px;position:relative}
+.project li::before{content:"";position:absolute;left:0;top:.72em;width:6px;height:2px;background:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font:500 .75rem/1 var(--f-mono);border:1px solid var(--line);padding:6px 9px;border-radius:999px;color:var(--muted)}
+
+.simple{display:grid;gap:28px}
+.simple ul{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.simple li{max-width:66ch;padding-left:16px;position:relative}
+.simple li::before{content:"";position:absolute;left:0;top:.72em;width:6px;height:2px;background:var(--muted)}
+.edu{display:grid;gap:0}
+.edu-row{display:grid;grid-template-columns:1fr auto;gap:4px 24px;padding-block:18px;border-bottom:1px solid var(--line)}
+.edu-row:first-child{border-top:2px solid var(--ink)}
+.edu-row h3{font:600 1.0625rem/1.4 var(--f-body);margin:0}
+.edu-row p{margin:2px 0 0;color:var(--muted)}
+@media (max-width:600px){.edu-row{grid-template-columns:1fr}}
+
+.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:28px 40px}
+.skills h3{font:500 .75rem/1.4 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.skills .chips{margin-top:0}
+.skills .chip{color:var(--ink);background:var(--surface)}
+@media (max-width:640px){.skills{grid-template-columns:1fr}}
+
+/* contact */
+.contact{margin-top:clamp(72px,10vw,120px);border-top:2px solid var(--ink);padding-block:40px 56px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+.contact h2{font:850 clamp(2rem,5vw,3.25rem)/1 var(--f-display);font-stretch:115%;margin:0;text-wrap:balance}
+html[data-lang="zh"] .contact h2{letter-spacing:.04em}
+.contact p{color:var(--muted);margin:14px 0 0;max-width:46ch}
+.email{font:500 clamp(1rem,2.4vw,1.25rem)/1.3 var(--f-mono);color:var(--accent);word-break:break-all}
+.foot{font:500 .75rem/1.4 var(--f-mono);color:var(--muted);padding-bottom:32px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+@media (max-width:700px){.contact{grid-template-columns:1fr}}
+</style>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="mark" href="#top">MIRA<span>.</span>XU</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#work"><span class="en">Work</span><span class="zh">工作</span></a>
+      <a href="#projects"><span class="en">Projects</span><span class="zh">项目</span></a>
+      <a href="#education"><span class="en">Education</span><span class="zh">教育</span></a>
+      <a href="#skills"><span class="en">Skills</span><span class="zh">技能</span></a>
+      <a href="#contact"><span class="en">Contact</span><span class="zh">联系</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button id="btn-en" type="button" data-set="en" aria-pressed="true">EN</button>
+      <button id="btn-zh" type="button" data-set="zh" aria-pressed="false">中文</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <div class="hero">
+    <div class="eyebrow">
+      <span class="live"><span class="en">In transit · Budapest, HU</span><span class="zh">运输中 · 匈牙利·布达佩斯</span></span>
+      <span class="en">Last-mile operations · SQL &amp; AI data</span><span class="zh">末端运营 · SQL 与 AI 数据</span>
+    </div>
+    <h1>
+      <span class="en">Jiabei (Mira) Xu<span class="alt">徐佳贝</span></span>
+      <span class="zh">徐佳贝<span class="alt">Jiabei (Mira) Xu</span></span>
+    </h1>
+    <p class="thesis">
+      <span class="en">I run quality control for a national last-mile network and build the SQL models, dashboards and AI-assisted tools that keep it on time. My work turns parcel scans into <b>decisions about vendors, drivers and billing</b>.</span>
+      <span class="zh">我独立统筹一张国家级末派网络的质控，并亲手搭建让它准时运转的 SQL 模型、数据看板与 AI 辅助工具，把每一次包裹扫描变成<b>关于供应商、司机与结算的决策</b>。</span>
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="#work"><span class="en">See the work</span><span class="zh">查看工作经历</span> ↓</a>
+      <a class="btn" href="#contact"><span class="en">Get in touch</span><span class="zh">联系我</span></a>
+    </div>
+
+    <div class="route" aria-label="Career route">
+      <div class="route-head">
+        <span class="en">Route history</span><span class="zh">轨迹记录</span>
+        <span><span class="en">Shanghai → Stockholm → Budapest</span><span class="zh">上海 → 斯德哥尔摩 → 布达佩斯</span></span>
+      </div>
+      <ol class="stops">
+        <li class="stop"><span class="dot"></span><span class="code"><span class="en">Shanghai</span><span class="zh">上海</span><span class="country"><span class="en">China</span><span class="zh">中国</span></span></span><span class="when">2019.09 – 2023.06</span><span class="what"><span class="en">BA English, SUIBE · Top 5%</span><span class="zh">上海对外经贸大学 · 英语本科 · TOP 5%</span></span></li>
+        <li class="stop"><span class="dot"></span><span class="code"><span class="en">Stockholm</span><span class="zh">斯德哥尔摩</span><span class="country"><span class="en">Sweden</span><span class="zh">瑞典</span></span></span><span class="when">2023.09 – 2025.07</span><span class="what"><span class="en">MSc Information Systems Management, Stockholm University</span><span class="zh">斯德哥尔摩大学 · 信息系统管理硕士</span></span></li>
+        <li class="stop now"><span class="dot"></span><span class="code"><span class="en">Budapest</span><span class="zh">布达佩斯</span><span class="country"><span class="en">Hungary</span><span class="zh">匈牙利</span></span></span><span class="when"><span class="en">2025.08 – now</span><span class="zh">2025.08 – 至今</span></span><span class="what"><span class="en">National QC lead, iMile Hungary</span><span class="zh">iMile 匈牙利国家线 · 国家质控</span></span></li>
+      </ol>
+    </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <span class="m-label"><span class="en">Daily mis-sorts · CDC</span><span class="zh">日均错分错发 · CDC</span></span>
+        <span class="m-val"><s>~200</s><span class="arrow">→</span><em>&lt;10</em></span>
+        <p class="m-note"><span class="en">10-minute near-real-time alerting with next-morning audits.</span><span class="zh">10 分钟级准实时预警，配合次日复盘。</span></p>
+      </div>
+      <div class="metric">
+        <span class="m-label"><span class="en">Dispatched, not received</span><span class="zh">有发未到率</span></span>
+        <span class="m-val"><s>16%</s><span class="arrow">→</span><em>0.1%</em></span>
+        <p class="m-note"><span class="en">Tiered exception closure linking CDC and last-mile pipelines.</span><span class="zh">分级异常闭环，打通 CDC 与末派节点。</span></p>
+      </div>
+      <div class="metric">
+        <span class="m-label"><span class="en">PUDO first-week P90</span><span class="zh">PUDO 首周 P90 时效</span></span>
+        <span class="m-val"><em>1.95</em><small><span class="en">days</span><span class="zh">天</span></small></span>
+        <p class="m-note"><span class="en">Initial scan to consumer collection, ahead of home delivery.</span><span class="zh">首次扫描至消费者取件，优于传统宅配。</span></p>
+      </div>
+      <div class="metric">
+        <span class="m-label"><span class="en">National weekly SLA</span><span class="zh">全网周度时效</span></span>
+        <span class="m-val"><em>≤72</em><small>H</small></span>
+        <p class="m-note"><span class="en">Held by reusable SQL + AI weekly analysis templates.</span><span class="zh">依托可复用的 SQL + AI 周度分析模板。</span></p>
+      </div>
+      <div class="metric">
+        <span class="m-label"><span class="en">Automated billing</span><span class="zh">自动化结算</span></span>
+        <span class="m-val"><em>40+</em><small><span class="en">vendors</span><span class="zh">家供应商</span></small></span>
+        <p class="m-note"><span class="en">25+ contract pricing rule sets, traceable to source data.</span><span class="zh">25+ 套合同计价规则，可追溯至源数据。</span></p>
+      </div>
+      <div class="metric">
+        <span class="m-label"><span class="en">Dashboard iterations</span><span class="zh">看板迭代</span></span>
+        <span class="m-val"><em>70+</em><small><span class="en">versions</span><span class="zh">版</span></small></span>
+        <p class="m-note"><span class="en">P90/P95 performance with station, vendor and district drill-downs.</span><span class="zh">P90/P95 时效，支持站点、供应商与分区下钻。</span></p>
+      </div>
+    </div>
+  </div>
+
+  <section class="block" id="work">
+    <div class="s-label">
+      <h2><span class="en">Experience</span><span class="zh">工作经历</span></h2>
+      <p><span class="en">Operations · Data · Settlement</span><span class="zh">运营 · 数据 · 结算</span></p>
+    </div>
+    <div>
+      <div class="role-head">
+        <h3><span class="en">iMile · Hungary National Line</span><span class="zh">iMile · 匈牙利国家线</span></h3>
+        <span class="meta"><span class="en">Budapest · 08/2025 – Present</span><span class="zh">布达佩斯 · 2025.08 – 至今</span></span>
+      </div>
+      <p class="role-sub"><span class="en">Sole national QC lead: end-to-end quality control hub, SQL data dashboards, PUDO network design and automated billing systems.</span><span class="zh">独立统筹国家质控中枢、全网 SQL 数据看板、PUDO 网络设计与自动化结算体系。</span></p>
+
+      <ol class="streams">
+        <li class="stream">
+          <span class="tag">SLA</span>
+          <div>
+            <h4><span class="en">SQL &amp; AI-driven SLA monitoring and last-mile governance</span><span class="zh">SQL 与 AI 驱动的全链路时效监控与末派履约治理</span></h4>
+            <ul>
+              <li><span class="en"><b>SQL core modeling with AI-assisted analysis.</b> Built core datasets (daily pattern filtering, P90 daily batch tracking, station and stage timeliness trends) and turned them into reusable weekly analysis templates, keeping the national weekly SLA within 72H.</span><span class="zh"><b>SQL 底层建模与 AI 辅助分析：</b>独立编写核心底层数据（日常件模式化筛选、P90 每日批次监控、分站点/分阶段全国时效趋势），借助 AI 沉淀为可复用的周度分析模板，保障全网周度时效稳定在 72H 以内。</span></li>
+              <li><span class="en"><b>Performance scoring and vendor elimination.</b> A multi-tier scoring model and dashboard across supervisors, stations and suppliers, so onboarding, penalties and elimination are fully data-driven.</span><span class="zh"><b>数字化评分与供应商汰换：</b>搭建覆盖“网管-网点-供应商”的立体化评分模型与履约看板，让供应商准入与淘汰全流程数据驱动、有据可依。</span></li>
+            </ul>
+          </div>
+        </li>
+        <li class="stream">
+          <span class="tag">EXC</span>
+          <div>
+            <h4><span class="en">Exception management and operational standards</span><span class="zh">自研异常管控系统与现场运营标准闭环</span></h4>
+            <ul>
+              <li><span class="en"><b>10-minute mis-sort warning system.</b> Near-real-time CDC alerts with next-morning audits and secondary tagging moved sites from reactive inspection to on-the-spot correction. Daily mis-sorts fell from about 200 to single digits.</span><span class="zh"><b>CDC 错分 10 分钟级实时预警：</b>准实时反馈报表结合次日复盘与二次标记，推动现场由被动检查转为当场纠偏，错分错发从日均约 200 降至个位数。</span></li>
+              <li><span class="en"><b>Zero-backlog daily clearance.</b> Led CDC warehouse audits, using SQL to trace customs discrepancies, clear unlabelled parcels and return aged parcels daily.</span><span class="zh"><b>仓储“日清日结”标准：</b>主导 CDC 全仓清盘，利用 SQL 追踪清关交邮差异、清理无名包裹、超期包裹日退返，实现零无名积压、零超期滞留。</span></li>
+              <li><span class="en"><b>Tiered exception closure.</b> Daily delta reviews on shared trackers and linked CDC and last-mile email pipelines cut dispatched-not-received from 16% to 0.1%.</span><span class="zh"><b>分级异常件闭环：</b>迭代共享表格与“日小会”跟进，打通 CDC 与末派节点邮件交互，有发未到率从 16% 降至 0.1%。</span></li>
+            </ul>
+          </div>
+        </li>
+        <li class="stream">
+          <span class="tag">PAY</span>
+          <div>
+            <h4><span class="en">Fleet compensation, settlement and risk governance</span><span class="zh">司机薪酬体系重构、商业结算与风控合规</span></h4>
+            <ul>
+              <li><span class="en"><b>Multi-tier driver compensation.</b> Designed pay and incentive models for in-house, outsourced and student couriers, with SQL consolidating attendance, volumes and commission logic to balance retention and unit cost.</span><span class="zh"><b>多元运力薪酬架构：</b>针对自有、租赁、学生司机设计差异化薪酬激励模型，依托 SQL 统筹出勤、妥投件量与提成核算，兼顾运力留存与履约成本。</span></li>
+              <li><span class="en"><b>Last-mile cost auditing.</b> Governed daily and per-parcel fees and linehaul trip reconciliation for all contractors, with parcel-level cross-validation for 100% on-time, accurate invoicing.</span><span class="zh"><b>末派费用与调账审计：</b>统筹供应商计费（Daily/Parcel Fee）与支线趟数对账，运单级交叉核验，确保账单 100% 按期透明出具。</span></li>
+              <li><span class="en"><b>Arbitration automation, 0 to 1.</b> Moved the arbitration ticket system through grace period, email appeals and automated system deduction, reaching fully automated monthly arbitration billing and far fewer disputes.</span><span class="zh"><b>仲裁系统化从 0 到 1：</b>完成“免罚磨合 → 邮件申诉 → 系统仲裁自动化出账”三级演进，实现月度自动化仲裁出账，争议率大幅下降。</span></li>
+            </ul>
+          </div>
+        </li>
+        <li class="stream">
+          <span class="tag">PUDO</span>
+          <div>
+            <h4><span class="en">PUDO network design and client engagement</span><span class="zh">创新业务孵化、PUDO 网络设计与客户协同</span></h4>
+            <ul>
+              <li><span class="en"><b>Budapest PUDO network.</b> Designed end-to-end workflows and SOPs for pickup points. First-week P90 from initial scan to collection was 1.95 days, well ahead of home delivery.</span><span class="zh"><b>布达佩斯 PUDO 自提网络：</b>独立设计全链路运营流程与标准，首周实测首扫到取件 P90 时效 1.95 天，显著优于传统宅配。</span></li>
+              <li><span class="en"><b>3PL lifecycle and product incubation.</b> Managed 3PL IT integration, push logic and settlements; worked with cross-border teams on the PRD for high-risk COD pre-delivery intervention.</span><span class="zh"><b>3PL 全流程对接与产品化：</b>统筹 3PL 系统对接、推单与账单结清；协同跨国团队推进 COD 高风险订单提前介入的产品原型与 PRD。</span></li>
+              <li><span class="en"><b>Key account interface.</b> Primary national liaison between AM teams and engineering, codifying client-specific SLAs and resolving escalations quickly.</span><span class="zh"><b>大客户（AM）接口：</b>担任国家线与 AM 团队、系统部的核心对接窗口，沉淀大客户定制交付规则，保障客诉高效响应。</span></li>
+            </ul>
+          </div>
+        </li>
+        <li class="stream">
+          <span class="tag">TOOLS</span>
+          <div>
+            <h4><span class="en">AI-assisted internal tooling and automation</span><span class="zh">AI 辅助内部工具与自动化</span></h4>
+            <ul>
+              <li><span class="en"><b>Supplier billing engine.</b> An in-browser tool built with Claude that reads daily DA/DLD exports and applies 25+ contract pricing rule sets across 40+ subcontractors, replacing manual Excel with traceable results.</span><span class="zh"><b>供应商自动结算引擎：</b>借助 Claude 自研浏览器端工具，读取每日 DA/DLD 导出数据，覆盖 40 余家供应商的 25+ 套计价规则，以可追溯的自动核算替代手工 Excel。</span></li>
+              <li><span class="en"><b>Forecast intake automation.</b> A Python pipeline (IMAP → Excel parsing → Feishu Bitable, scheduled on GitHub Actions) consolidates every client's forecast emails with no re-entry.</span><span class="zh"><b>客户预测数据自动同步：</b>Python 脚本（IMAP 收件 → Excel 解析 → 飞书多维表格，GitHub Actions 定时运行），统一汇总客户预测邮件，无需人工录入。</span></li>
+              <li><span class="en"><b>Operations dashboards.</b> A P90/P95 delivery dashboard (70+ iterations) with station, vendor and Budapest-district drill-downs, plus a driver monitor with tiered alerts.</span><span class="zh"><b>自研运营看板：</b>迭代 70+ 版 P90/P95 时效看板，支持站点、供应商与布达佩斯分区下钻，并搭建司机表现分级预警工具。</span></li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+
+      <div class="simple" style="margin-top:48px">
+        <div>
+          <div class="role-head">
+            <h3><span class="en">Siemens Healthineers · Market Analysis Intern</span><span class="zh">西门子医疗 · 市场分析实习</span></h3>
+            <span class="meta"><span class="en">Shanghai · 06/2024 – 08/2024</span><span class="zh">上海 · 2024.06 – 2024.08</span></span>
+          </div>
+          <ul>
+            <li><span class="en">Cleaned and modeled large datasets in Tableau and Excel, building auto-refreshing dashboards for key medical product lines.</span><span class="zh">运用 Tableau 与 Excel 清洗与建模海量数据，搭建关键产品线动态监控看板并实现自动刷新。</span></li>
+            <li><span class="en">Ran drill-down analysis across brand, category and price tier to explain shifts for strategy.</span><span class="zh">围绕品牌、品类、价格三大维度开展下钻分析，挖掘数据变动动因，支持业务策略制定。</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="projects">
+    <div class="s-label">
+      <h2><span class="en">Independent work</span><span class="zh">独立项目</span></h2>
+      <p><span class="en">AI products · 2026</span><span class="zh">AI 产品 · 2026</span></p>
+    </div>
+    <article class="project">
+      <div class="role-head">
+        <h3><span class="en">Smart Expense &amp; Financial Intelligence App</span><span class="zh">智能报销与财务洞察 App</span></h3>
+        <span class="meta"><span class="en">Solo creator · 2026</span><span class="zh">个人独立开发 · 2026</span></span>
+      </div>
+      <ul>
+        <li><span class="en">Designed and shipped a mobile expense app end to end with Claude as development partner, owning requirements, logic, testing and deployment.</span><span class="zh">以 Claude 作为开发协作工具，独立完成移动端应用的需求、架构、业务规则、测试与上线。</span></li>
+        <li><span class="en">Gemini multimodal vision reads receipt photos and parses e-receipts such as Uber emails into amounts, line items and VAT.</span><span class="zh">集成 Gemini 多模态视觉模型，识别发票照片并自动解析 Uber 等电子收据，结构化提取金额、明细与税额。</span></li>
+        <li><span class="en">A mapping engine generates company-compliant reimbursement sheets and weekly and monthly spending insights.</span><span class="zh">自动化映射引擎一键生成符合公司规范的报销 Excel，并输出周度、月度支出分析。</span></li>
+      </ul>
+      <div class="chips">
+        <span class="chip">Claude</span><span class="chip">Gemini Vision API</span><span class="chip">OCR → Structured data</span><span class="chip">Excel export</span>
+      </div>
+    </article>
+  </section>
+
+  <section class="block" id="education">
+    <div class="s-label">
+      <h2><span class="en">Education</span><span class="zh">教育经历</span></h2>
+      <p>2019 – 2025</p>
+    </div>
+    <div class="edu">
+      <div class="edu-row">
+        <div>
+          <h3><span class="en">Stockholm University</span><span class="zh">斯德哥尔摩大学</span></h3>
+          <p><span class="en">MSc Information Systems Management · GPA B/A</span><span class="zh">信息系统管理 硕士 · GPA B/A</span></p>
+        </div>
+        <span class="meta"><span class="en">Stockholm · 09/2023 – 07/2025</span><span class="zh">斯德哥尔摩 · 2023.09 – 2025.07</span></span>
+      </div>
+      <div class="edu-row">
+        <div>
+          <h3><span class="en">Shanghai University of International Business &amp; Economics</span><span class="zh">上海对外经贸大学</span></h3>
+          <p><span class="en">BA English · GPA 3.8/4.0 · Top 5% · First-Class Scholarship</span><span class="zh">英语 本科 · GPA 3.8/4.0 · TOP 5% · 校一等奖学金</span></p>
+        </div>
+        <span class="meta"><span class="en">Shanghai · 09/2019 – 06/2023</span><span class="zh">上海 · 2019.09 – 2023.06</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="skills">
+    <div class="s-label">
+      <h2><span class="en">Skills</span><span class="zh">专业技能</span></h2>
+      <p><span class="en">Tools · Methods · Languages</span><span class="zh">工具 · 方法 · 语言</span></p>
+    </div>
+    <div class="skills">
+      <div>
+        <h3><span class="en">Data &amp; automation</span><span class="zh">数据与自动化</span></h3>
+        <div class="chips"><span class="chip"><span class="en">Advanced SQL</span><span class="zh">高级 SQL</span></span><span class="chip">Python</span><span class="chip">JavaScript / HTML</span><span class="chip">FastAPI</span><span class="chip">FineBI</span><span class="chip">Tableau</span><span class="chip">Power Query</span><span class="chip">GitHub Actions</span></div>
+      </div>
+      <div>
+        <h3><span class="en">AI tools &amp; methods</span><span class="zh">AI 工具与方法</span></h3>
+        <div class="chips"><span class="chip"><span class="en">Claude (AI-assisted dev)</span><span class="zh">Claude（AI 辅助开发）</span></span><span class="chip">Gemini Multimodal API</span><span class="chip"><span class="en">Prompt engineering</span><span class="zh">Prompt 工程</span></span><span class="chip"><span class="en">AI output validation</span><span class="zh">AI 输出校验与对账</span></span></div>
+      </div>
+      <div>
+        <h3><span class="en">Operations &amp; architecture</span><span class="zh">业务与架构</span></h3>
+        <div class="chips"><span class="chip"><span class="en">Fleet pay &amp; incentives</span><span class="zh">运力薪酬与激励</span></span><span class="chip"><span class="en">Last-mile &amp; PUDO design</span><span class="zh">尾程与 PUDO 网络设计</span></span><span class="chip"><span class="en">Settlement risk</span><span class="zh">履约结算风控</span></span><span class="chip"><span class="en">Vendor KPI management</span><span class="zh">供应商 KPI 治理</span></span><span class="chip"><span class="en">Product prototyping</span><span class="zh">产品原型规划</span></span></div>
+      </div>
+      <div>
+        <h3><span class="en">Languages</span><span class="zh">语言能力</span></h3>
+        <div class="chips"><span class="chip"><span class="en">English · TOEFL 102</span><span class="zh">英语 · 专八 TEM-8 · 托福 102</span></span><span class="chip"><span class="en">Chinese · Native</span><span class="zh">中文 · 母语</span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div>
+      <h2><span class="en">Let’s talk.</span><span class="zh">欢迎联系</span></h2>
+    </div>
+    <div>
+      <a class="email" href="mailto:miraxu2222@gmail.com">miraxu2222@gmail.com</a>
+    </div>
+  </section>
+  <footer class="foot">
+    <span>© 2026 Jiabei (Mira) Xu</span>
+    <span>47.4979° N, 19.0402° E</span>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  function pick(){
+    var q=(location.search.match(/[?&]lang=(en|zh)/)||[])[1]||(location.hash==="#zh"?"zh":location.hash==="#en"?"en":null);
+    if(q) return q;
+    try{var s=localStorage.getItem("lang"); if(s==="en"||s==="zh") return s;}catch(e){}
+    return /^zh/i.test(navigator.language||"")?"zh":"en";
+  }
+  function set(l,save){
+    root.setAttribute("data-lang",l);
+    root.setAttribute("lang",l==="zh"?"zh-CN":"en");
+    document.title=l==="zh"?"徐佳贝 · Jiabei (Mira) Xu":"Jiabei (Mira) Xu";
+    document.querySelectorAll(".lang button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.set===l));});
+    if(save){try{localStorage.setItem("lang",l);}catch(e){}}
+  }
+  set(pick(),false);
+  document.querySelectorAll(".lang button").forEach(function(b){b.addEventListener("click",function(){set(b.dataset.set,true);});});
+
+  var links=[].slice.call(document.querySelectorAll(".nav a"));
+  function activate(id){
+    links.forEach(function(a){
+      var on=a.getAttribute("href")==="#"+id;
+      if(on){a.setAttribute("aria-current","true");var n=a.parentNode;n.scrollLeft=a.offsetLeft-n.offsetLeft-16;}
+      else a.removeAttribute("aria-current");
+    });
+  }
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting) activate(e.target.id);});
+    },{rootMargin:"-40% 0px -55% 0px"});
+    links.forEach(function(a){var t=document.querySelector(a.getAttribute("href")); if(t) io.observe(t);});
+  }
+})();
+</script>
